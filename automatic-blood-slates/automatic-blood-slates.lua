@@ -12,7 +12,7 @@ function start()
 end
 
 function stop()
-    for i, proc in  ipairs(threads) do
+    for i, proc in ipairs(threads) do
         if proc.status and proc:status() ~= "dead" then
             proc:kill()
         end
