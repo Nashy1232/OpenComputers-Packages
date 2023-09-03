@@ -31,7 +31,7 @@ while true do
         local transposer_packager_side = settings.rigs[index].transposer_packager_side
         local transposer_input_side = settings.rigs[index].transposer_output_side
 
-
+        inventory_table(transposer_input, transposer_input_side)
 
     end
     os.sleep(3)
