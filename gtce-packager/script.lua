@@ -14,7 +14,7 @@ function inventory_table(transposer, side)
                 local search_item = transposer.getStackInSlot(side, search_slot)
                 if (search_item ~= nil) then
                     if (transposer.areStacksEquivalent(side, active_slot, side, search_slot)) then
-                        term.write("true")
+                        term.write("true \n")
                     end
                 end
             end
