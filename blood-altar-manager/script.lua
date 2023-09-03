@@ -21,13 +21,19 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
     start_capacity, target_info)
     local capacity = transposer_fluids.getTankLevel(altar_side_fluids)
     local item_info = transposer_items.getStackInSlot(altar_side_items, 1)
+    local data = {
+        stop = false,
+        start = false,
+        match = false,
+        empty = false
+    }
 
     -- Checks if altar has dropped below the shutdown threshold
     if (capacity < stop_capacity) then
         if (settings.debug == true) then
             term.write("Altar bellow stop capacity. \n")
         end
-        return "stop"
+        data.stop = true
     end
 
     -- Checks to see if altar is empty, 
@@ -37,13 +43,13 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
         if (settings.debug == true) then
             term.write("Altar empty. \n")
         end
-        return "empty"
+        data.empty = true
     else
         if (item_info.name == target_info.name and item_info.label == target_info.label) then
             if (settings.debug == true) then
                 term.write("Altar item match. \n")
             end
-            return "match"
+            data.match = true
         end
     end
 
@@ -52,20 +58,21 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
         if (settings.debug == true) then
             term.write("Altar bellow start capacity. \n")
         end
-        return "low"
+        data.low = true
     end
 
+    return data
 end
 
 function altar_extract(transposer, altar_side, output_side)
     local item_info = transposer.getStackInSlot(altar_side, 1)
     while item_info ~= nil do
         for slot = 1, transposer.getInventorySize(output_side), 1 do
-            local chest_item = transposer.getStackInSlot(output_side, slot)
-            if (chest_item == nil) then
+            local inv_item = transposer.getStackInSlot(output_side, slot)
+            if (inv_item == nil) then
                 transposer.transferItem(altar_side, output_side, 1, 1, slot)
                 break
-            elseif (item_info.label == chest_item.label) then
+            elseif (item_info.label == inv_item.label) then
                 transposer.transferItem(altar_side, output_side, 1, 1, slot)
                 break
             end
@@ -78,8 +85,8 @@ end
 
 function altar_insert(transposer, altar_side, input_side, transfer_count)
     for slot = 1, transposer.getInventorySize(input_side), 1 do
-        local chest_item = transposer.getStackInSlot(input_side, slot)
-        if (chest_item ~= nil) then
+        local inv_item = transposer.getStackInSlot(input_side, slot)
+        if (inv_item ~= nil) then
             transposer.transferItem(input_side, altar_side, transfer_count, slot, 1)
             break
         end
@@ -106,24 +113,21 @@ while true do
         local transfer_count = settings.altars[index].altar_transfer_count
         local start_capacity = settings.altars[index].altar_start_capacity
         local stop_capacity = settings.altars[index].altar_stop_capacity
-        local using_buffer = settings.altars[index].using_buffer
 
         if (settings.debug == true) then
             term.write(transposer_target.address .. "\n")
         end
+
         local target_info = check_target(transposer_target, target_side)
         if (target_info ~= null) then
-            local altar_info = check_altar(transposer_fluids, transposer_items, altar_side_items, altar_side_fluids,
+            local altar_data = check_altar(transposer_fluids, transposer_items, altar_side_items, altar_side_fluids,
                 stop_capacity, start_capacity, target_info)
-            if (altar_info == "stop" and transposer_items.getStackInSlot(altar_side_items, 1) ~= nil) then
+                
+            if (altar_data.match or altar_data.stop) then
                 altar_extract(transposer_items, altar_side_items, output_side)
-            elseif (altar_info == "match") then
-                altar_extract(transposer_items, altar_side_items, output_side)
-            elseif (altar_info == "empty") then
-                local insert = altar_insert(transposer_items, altar_side_items, input_side, transfer_count)
+            elseif (altar_data.empty) then
+                altar_insert(transposer_items, altar_side_items, input_side, transfer_count)
             end
-        elseif (using_buffer == true and transposer_items.getStackInSlot(input_side, 1) ~= nil) then
-            transposer_items.transferItem(input_side, output_side, transposer_items.getSlotStackSize(input_side, 1), 1)
         end
     end
     os.sleep(3)
