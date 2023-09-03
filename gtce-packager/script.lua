@@ -17,7 +17,7 @@ function inventory_table(transposer, side)
             else
                 inventory[item.name] = item.size
             end
-            term.write(tostring(inventory[item.name]))
+            term.write(tostring(item.name))
         end
         os.sleep(0.1)
     end
