@@ -12,7 +12,7 @@ function inventory_table(transposer, side)
         -- get item data from slot
         local item = transposer.getStackInSlot(side, slot)
         if (item ~= nil) then
-            if (inventory_tabl[item.name] ~= nil) then
+            if (inventory[item.name] ~= nil) then
                 inventory[item.name] = inventory[item.name] + item.size
             else
                 inventory[item.name] = item.size
