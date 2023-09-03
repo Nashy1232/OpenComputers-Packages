@@ -50,7 +50,7 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
     -- if the altar is NOT empty then check if the altars item matches the target item
     if (item_info == nil) then
         if (settings.debug == true) then
-            term.write("Altar empty. \n")
+            term.write("Altar inventory empty. \n")
         end
         data.empty = true
     else
