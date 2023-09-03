@@ -2,7 +2,7 @@ local os = require("os")
 local component = require("component")
 local term = require("term")
 
-local settings = dofile("/usr/bin/automatic-nacre/settings.cfg")
+local settings = dofile("/usr/bin/nacre-creator/settings.cfg")
 
 function contains_any_items(transposer, side)
     local inv_slots = transposer.getInventorySize(side)

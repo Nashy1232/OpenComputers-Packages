@@ -3,7 +3,7 @@ local shell = require "shell"
 local thread = require "thread"
 
 local threads = {}
-local program = "/usr/bin/automatic-nacre/script.lua"
+local program = "/usr/bin/nacre-creator/script.lua"
 
 function start()
     local proc = thread.create(shell.execute, program, os.getenv("shell"))
