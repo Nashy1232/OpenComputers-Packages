@@ -39,4 +39,5 @@ while true do
 
     end
     os.sleep(3)
+    break
 end
