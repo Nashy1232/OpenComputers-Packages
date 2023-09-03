@@ -26,26 +26,24 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
             term.write("Altar bellow stop capacity. \n")
         end
         return "stop"
+    end
     if (capacity < start_capacity) then
         if (settings.debug == true) then
             term.write("Altar bellow start capacity. \n")
         end
         return "low"
+    end
     if (item_info == nil) then
         if (settings.debug == true) then
             term.write("Altar empty. \n")
         end
         return "empty"
+    end
     if (item_info.name == target_info.name and item_info.label == target_info.label) then
         if (settings.debug == true) then
             term.write("Altar item match. \n")
         end
         return "match"
-    if (item_info.name == null) then
-        if (settings.debug == true) then
-            term.write("Alter contains non target item. \n")
-        end
-        return "invalid"
     end
 end
 
