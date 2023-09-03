@@ -123,6 +123,9 @@ while true do
             local altar_data = check_altar(transposer_fluids, transposer_items, altar_side_items, altar_side_fluids,
                 stop_capacity, start_capacity, target_info)
 
+                term.write(altar_data.low)
+                term.write(altar_data.empty)
+
             if (altar_data.match == true or altar_data.stop == true) then
                 altar_extract(transposer_items, altar_side_items, output_side)
             elseif (altar_data.empty == true and altar_data.low == false) then
