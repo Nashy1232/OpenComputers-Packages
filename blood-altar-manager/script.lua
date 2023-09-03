@@ -123,10 +123,10 @@ while true do
             local altar_data = check_altar(transposer_fluids, transposer_items, altar_side_items, altar_side_fluids,
                 stop_capacity, start_capacity, target_info)
 
-            if (altar_data.match or altar_data.stop) then
+            if (altar_data.match == true or altar_data.stop == true) then
                 altar_extract(transposer_items, altar_side_items, output_side)
-            elseif (altar_data.empty and altar_data.low == false) then
-                altar_insert(transposer_items, altar_side_items, input_side, transfer_count)
+            elseif (altar_data.empty == true and altar_data.low == false) then
+                local insert = altar_insert(transposer_items, altar_side_items, input_side, transfer_count)
             end
         end
     end
