@@ -25,7 +25,8 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
         stop = false,
         start = false,
         match = false,
-        empty = false
+        empty = false,
+        low = false
     }
 
     -- Checks if altar has dropped below the shutdown threshold
@@ -123,13 +124,9 @@ while true do
             local altar_data = check_altar(transposer_fluids, transposer_items, altar_side_items, altar_side_fluids,
                 stop_capacity, start_capacity, target_info)
 
-            term.write(tostring(altar_data.low))
-            term.write(tostring(altar_data.empty))
-
             if (altar_data.match == true or altar_data.stop == true) then
                 altar_extract(transposer_items, altar_side_items, output_side)
             elseif (altar_data.empty == true and altar_data.low == false) then
-                term.write("WHY DONT YOU WORK?!")
                 altar_insert(transposer_items, altar_side_items, input_side, transfer_count)
             end
         end
