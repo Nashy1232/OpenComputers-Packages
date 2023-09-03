@@ -2,7 +2,7 @@ local component = require("component")
 local os = require("os")
 local term = require("term")
 
-local settings = dofile("/usr/bin/automatic-blood-slates/settings.cfg")
+local settings = dofile("/usr/bin/blood-slate-manager/settings.cfg")
 
 function check_target(transposer, target_side)
     local info = transposer.getStackInSlot(target_side, 1)
