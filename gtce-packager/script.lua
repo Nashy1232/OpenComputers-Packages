@@ -4,6 +4,21 @@ local term = require("term")
 
 local settings = dofile("/usr/bin/gtce-packager/settings.cfg")
 
+function inventory_table(transposer, side)
+    local inventory = {}
+
+    -- loop through every slot in the inventory
+    for slot = 1, transposer.getInventorySize(side), 1 do
+        -- get item data from slot
+        local item = transposer.getStackInSlot(side, slot)
+        if (item ~= nil) then
+            inventory[item.name] = inventory[item.name] + item.size
+            term.write(tostring(inventory[item.name]))
+        end
+        os.sleep(0.1)
+    end
+end
+
 while true do
     if (settings.debug == true) then
         term.clear()
@@ -16,8 +31,7 @@ while true do
         local transposer_packager_side = settings.rigs[index].transposer_packager_side
         local transposer_input_side = settings.rigs[index].transposer_output_side
 
-        local s = tostring(transposer_packager.getInventorySize(transposer_packager_side))
-        term.write(s)
+
 
     end
     os.sleep(3)
