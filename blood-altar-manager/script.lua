@@ -20,12 +20,8 @@ end
 function check_altar(transposer_fluids, transposer_items, altar_side_items, altar_side_fluids, stop_capacity, start_capacity, target_info)
     local capacity = transposer_fluids.getTankLevel(altar_side_fluids)
     local item_info = transposer_items.getStackInSlot(altar_side_items, 1)
-    if (item_info == nil) then
-        if (settings.debug == true) then
-            term.write("Altar empty. \n")
-        end
-        return "empty"
-    elseif (item_info.name == target_info.name and item_info.label == target_info.label) then
+
+    if (item_info.name == target_info.name and item_info.label == target_info.label) then
         if (settings.debug == true) then
             term.write("Altar item match. \n")
         end
@@ -40,6 +36,11 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
             term.write("Altar bellow start capacity. \n")
         end
         return "low"
+    elseif (item_info == nil) then
+        if (settings.debug == true) then
+            term.write("Altar empty. \n")
+        end
+        return "empty"
     else
         if (settings.debug == true) then
             term.write("Alter contains non target item. \n")
