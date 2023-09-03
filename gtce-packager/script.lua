@@ -29,7 +29,7 @@ while true do
         local transposer_input = component.proxy(component.get(settings.rigs[index].transposer_input_address))
 
         local transposer_packager_side = settings.rigs[index].transposer_packager_side
-        local transposer_input_side = settings.rigs[index].transposer_output_side
+        local transposer_input_side = settings.rigs[index].transposer_input_side
 
         inventory_table(transposer_input, transposer_input_side)
 
