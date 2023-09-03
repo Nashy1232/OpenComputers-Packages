@@ -35,6 +35,11 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
             term.write("Altar bellow stop capacity. \n")
         end
         return "stop"
+    elseif (capacity < start_capacity) then
+        if (settings.debug == true) then
+            term.write("Altar bellow start capacity. \n")
+        end
+        return "low"
     else
         if (settings.debug == true) then
             term.write("Alter contains non target item. \n")
