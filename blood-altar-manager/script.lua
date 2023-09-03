@@ -36,6 +36,14 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
         data.stop = true
     end
 
+    -- Checks if the altar has enough blood to start a run
+    if (capacity < start_capacity) then
+        if (settings.debug == true) then
+            term.write("Altar bellow start capacity. \n")
+        end
+        data.low = true
+    end
+
     -- Checks to see if altar is empty, 
     -- if the altar is empty then return that it is empty.
     -- if the altar is NOT empty then check if the altars item matches the target item
@@ -51,14 +59,6 @@ function check_altar(transposer_fluids, transposer_items, altar_side_items, alta
             end
             data.match = true
         end
-    end
-
-    -- Checks if the altar has enough blood to start a run
-    if (capacity < start_capacity) then
-        if (settings.debug == true) then
-            term.write("Altar bellow start capacity. \n")
-        end
-        data.low = true
     end
 
     return data
@@ -123,8 +123,8 @@ while true do
             local altar_data = check_altar(transposer_fluids, transposer_items, altar_side_items, altar_side_fluids,
                 stop_capacity, start_capacity, target_info)
 
-                term.write(altar_data.low)
-                term.write(altar_data.empty)
+            term.write(tostring(altar_data.low))
+            term.write(tostring(altar_data.empty))
 
             if (altar_data.match == true or altar_data.stop == true) then
                 altar_extract(transposer_items, altar_side_items, output_side)
