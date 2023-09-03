@@ -125,7 +125,7 @@ while true do
 
             if (altar_data.match or altar_data.stop) then
                 altar_extract(transposer_items, altar_side_items, output_side)
-            elseif (altar_data.empty and ~altar_data.low) then
+            elseif (altar_data.empty and altar_data.low == false) then
                 altar_insert(transposer_items, altar_side_items, input_side, transfer_count)
             end
         end
