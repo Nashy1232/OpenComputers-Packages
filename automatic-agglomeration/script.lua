@@ -2,20 +2,38 @@ local component = require("component")
 local os = require("os")
 local term = require("term")
 
+local sides = require("sides")
+
 local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
-ed_rs = component.proxy(component.get(settings.ed_rs_address))
-ed_side = settings.ed_rs_side
-mp_rs = component.proxy(component.get(settings.mp_rs_address))
-mp_side = settings.mp_rs_side
-drop_rs = component.proxy(component.get(settings.drop_rs_address))
-drop_side = settings.drop_rs_side
+local rs = component.proxy(component.get("3f01"))
+local s = sides.top
+
+term.write(rs.getComparatorInput(s) .. "\n")
+
+-- returns percentage value from 0 to 1.0
+function get_pool_percent(redstone, side)
+    local compare_value = rs.getComparatorInput(side)
+    return (compare_value / 15)
+end
 
 while true do
-    if (ed_rs.getInput(ed_side) == 0 and mp_rs.getComparatorInput(mp_side) >= 14) then
-        drop_rs.setOutput(drop_side, 15)
-        os.sleep(0.1)
-        drop_rs.setOutput(drop_side, 0)
+    for index in pairs(settings.rigs) do
+        os.sleep(0.5)
+        local redstone_pool = component.proxy(component.get(settings.rigs[index].redstone_pool_address))
+        local redstone_pool_side = settings.rigs[index].redstone_pool_side
+        local pool_percent = (redstone_pool.getComparatorInput(redstone_pool_side()) / 15) -- percent value between 0 and 1.0
+        local mana_threshold = settings.rigs[index].mana_threshold
+
+        if pool_percent > mana_threshold then 
+            term.write("true")
+            return
+        else
+            term.write("false")
+            return
+        end
+
+
     end
-    os.sleep(0.5)
+    os.sleep(1)
 end
