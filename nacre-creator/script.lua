@@ -21,14 +21,14 @@ while true do
         term.clear()
     end
     for index in pairs(settings.rigs) do
-        redstone_dropper = component.proxy(component.get(settings.rigs[index].redstone_dropper_address))
-        redstone_dropper_side = settings.rigs[index].redstone_dropper_side
-        redstone_collector = component.proxy(component.get(settings.rigs[index].redstone_collector_address))
-        redstone_collector_side = settings.rigs[index].redstone_collector_side
-        geolyzer = component.proxy(component.get(settings.rigs[index].geolyzer_address))
-        geolyzer_side = settings.rigs[index].geolyzer_side
-        transposer = component.proxy(component.get(settings.rigs[index].transposer_address))
-        transposer_dropper_side = settings.rigs[index].transposer_dropper_side
+        local redstone_dropper = component.proxy(component.get(settings.rigs[index].redstone_dropper_address))
+        local redstone_dropper_side = settings.rigs[index].redstone_dropper_side
+        local redstone_collector = component.proxy(component.get(settings.rigs[index].redstone_collector_address))
+        local redstone_collector_side = settings.rigs[index].redstone_collector_side
+        local geolyzer = component.proxy(component.get(settings.rigs[index].geolyzer_address))
+        local geolyzer_side = settings.rigs[index].geolyzer_side
+        local transposer = component.proxy(component.get(settings.rigs[index].transposer_address))
+        local transposer_dropper_side = settings.rigs[index].transposer_dropper_side
     
         redstone_dropper.setOutput(redstone_dropper_side, 0)
         redstone_collector.setOutput(redstone_collector_side, 0)
