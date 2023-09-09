@@ -22,7 +22,7 @@ while true do
         os.sleep(0.5)
         local redstone_pool = component.proxy(component.get(settings.rigs[index].redstone_pool_address))
         local redstone_pool_side = settings.rigs[index].redstone_pool_side
-        local pool_percent = (redstone_pool.getComparatorInput(redstone_pool_side()) / 15) -- percent value between 0 and 1.0
+        local pool_percent = (redstone_pool.getComparatorInput(redstone_pool_side) / 15) -- percent value between 0 and 1.0
         local mana_threshold = settings.rigs[index].mana_threshold
 
         if pool_percent > mana_threshold then 
