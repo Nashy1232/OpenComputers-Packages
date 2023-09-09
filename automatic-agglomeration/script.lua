@@ -9,7 +9,7 @@ local geo = component.proxy(component.get("459b"))
 local s = sides.bottom
 local data = geo.detect(s)
 
-term.write(data)
+term.write(tostring(data))
 
 -- returns percentage value from 0 to 1.0
 function get_pool_percent(redstone, side)
