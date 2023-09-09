@@ -10,7 +10,7 @@ local s = sides.down
 local data = geo.analyze(s)
 
 for k,v in pairs(data) do
-    term.write(k,v)
+    term.write(k,v .. "\n")
 end
 
 -- returns percentage value from 0 to 1.0
