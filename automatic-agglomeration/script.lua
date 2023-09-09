@@ -1,22 +1,17 @@
 local component = require("component") 
 local os = require("os")
 local term = require("term")
+local nashy = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
-local sides = require("sides")
-local geo = component.proxy(component.get("459b"))
-local s = sides.bottom
-local data = geo.detect(s)
+local t = component.proxy(component.get("59a5"))
+local s = sides.up
 
-term.write(tostring(data))
+local x = nashy.inventory.isEmpty(t,s)
+term.write(tostring(x))
 
--- returns percentage value from 0 to 1.0
-function get_pool_percent(redstone, side)
-    local compare_value = rs.getComparatorInput(side)
-    return (compare_value / 15)
-end
-
+--[[
 while true do
     for index in pairs(settings.rigs) do
         os.sleep(0.5)
@@ -37,3 +32,4 @@ while true do
     end
     os.sleep(1)
 end
+]]
