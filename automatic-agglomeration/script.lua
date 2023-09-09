@@ -2,14 +2,13 @@ local component = require("component")
 local os = require("os")
 local term = require("term")
 
-local sides = require("sides")
-
 local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
-local rs = component.proxy(component.get("3f01"))
-local s = sides.top
+local sides = require("sides")
+local geo = component.proxy(component.get("459b"))
+local s = sides.down
 
-term.write(rs.getComparatorInput(s) .. "\n")
+term.write(geo.analyze(s))
 
 -- returns percentage value from 0 to 1.0
 function get_pool_percent(redstone, side)
