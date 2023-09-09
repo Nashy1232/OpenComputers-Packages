@@ -7,8 +7,11 @@ local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 local sides = require("sides")
 local geo = component.proxy(component.get("459b"))
 local s = sides.down
+local data = geo.analyze(s)
 
-term.write(geo.analyze(s).serialize())
+for index in pairs(data) do
+    term.write(data[index] .. "\n")
+end
 
 -- returns percentage value from 0 to 1.0
 function get_pool_percent(redstone, side)
