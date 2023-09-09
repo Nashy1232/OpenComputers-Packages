@@ -10,7 +10,9 @@ local s = sides.bottom
 local data = geo.analyze(s)
 
 for k,v in pairs(data) do
-    term.write(k,v)
+    term.write(k)
+    term.write(" : ")
+    term.write(v)
     term.write("\n")
 end
 
