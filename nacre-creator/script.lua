@@ -1,20 +1,9 @@
 local os = require("os")
 local component = require("component")
 local term = require("term")
+local inventory = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/nacre-creator/settings.cfg")
-
-function contains_any_items(transposer, side)
-    local inv_slots = transposer.getInventorySize(side)
-    for slot = 1, inv_slots, 1 do
-        local stack_size = transposer.getSlotStackSize(side, slot)
-        if (stack_size ~= nil and stack_size > 0) then
-            return true
-        end
-        os.sleep(0.2)
-    end
-    return false
-end
 
 while true do
     if (settings.debug == true) then
@@ -38,7 +27,7 @@ while true do
             term.write(geolyzer.address .. "\n")
             term.write(result_table.name .. "\n")
         end
-        if (result_table.name == "wizardry:mana_fluid" and contains_any_items(transposer, transposer_dropper_side) and settings.rigs[index].dropped == false) then
+        if (result_table.name == "wizardry:mana_fluid" and inventory.isEmpty(transposer, transposer_dropper_side, 0.2) == false and settings.rigs[index].dropped == false) then
             if (settings.debug == true) then
                 term.write("Dropping gold nugget." .. "\n")
             end
