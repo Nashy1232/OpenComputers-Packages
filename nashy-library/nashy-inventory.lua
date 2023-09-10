@@ -12,3 +12,5 @@ function inventoy.isEmpty(transposer, side)
     end
     return true
 end
+
+return inventory
