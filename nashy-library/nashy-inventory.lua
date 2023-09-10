@@ -1,7 +1,20 @@
 local inventory = {}
 
 -- check to see if inventory contains any items
-function inventory.isEmpty()
+function inventory.isEmpty(transposer, side)
+    local slots = transposer.getInventorySize()
+
+    if (slots == nil) then 
+        return nil
+    else
+        for index in pairs(slots) do
+            local stack = transposer.getStackInSlot()
+            if (stack ~= nil and stack.size > 0) then
+                return false
+            end
+        end
+    end
+
     return true
 end
 
