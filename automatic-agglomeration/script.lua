@@ -25,7 +25,7 @@ while true do
         local redstone_pool = component.proxy(component.get(settings.rigs[index].redstone_pool_address))
         local redstone_pool_side = settings.rigs[index].redstone_pool_side
         local redstone_dropper = component.proxy(component.get(settings.rigs[index].redstone_dropper_address))
-        local redstone_dropper_side = settings.rigs[index].redstone_dropper_address
+        local redstone_dropper_side = settings.rigs[index].redstone_dropper_side
 
         local pool_percent = (redstone_pool.getComparatorInput(redstone_pool_side) / 15) -- percent value between 0 and 1.0
         local mana_threshold = settings.rigs[index].mana_threshold
