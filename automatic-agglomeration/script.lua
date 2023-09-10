@@ -3,11 +3,11 @@ local os = require("os")
 local term = require("term")
 local nashy = require("nashy-inventory")
 
-local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
+--local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
 local sides = require("sides")
 
-local t = component.proxy(component.get("59a5"))
+local t = component.proxy(component.get("1e8b"))
 local s = sides.up
 
 local x = nashy.isEmpty()
