@@ -1,16 +1,17 @@
 local component = require("component") 
 local os = require("os")
 local term = require("term")
+local sides = require("sides")
 local inventory = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
-local function drop(transposer_dropper, side_transposer_dropper, redstone_dropper, side_redstone_dropper)
+local function drop(transposer_dropper, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
     while true do
-        if (inventory.isEmpty(transposer_dropper, side_transposer_dropper) == false) then
-            redstone_dropper.setOutput(side_redstone_dropper, 15)
+        if (inventory.isEmpty(transposer_dropper, transposer_dropper_side) == false) then
+            redstone_dropper.setOutput(redstone_dropper_side, 15)
             os.sleep(0.25)
-            redstone_dropper.setOutput(side_redstone_dropper, 0)
+            redstone_dropper.setOutput(redstone_dropper_side, 0)
         else
             break
         end
