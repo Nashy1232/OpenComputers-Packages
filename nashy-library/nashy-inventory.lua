@@ -11,6 +11,7 @@ function inventory.isEmpty(transposer, side)
 
     local slots = transposer.getInventorySize(side)
     for slot = 1, slots, 1 do
+        os.sleep(0.1)
         local stack = transposer.getStackInSlot(side, slot)
         if (stack ~= nil and stack.size > 0) then
             return false
@@ -19,8 +20,9 @@ function inventory.isEmpty(transposer, side)
     return true
 end
 
---return inventory
+return inventory
 
+--[[
 local component = require("component") 
 local sides = require("sides")
 
@@ -30,3 +32,4 @@ local side = sides.up
 local x = inventory.isEmpty(tp, side)
 
 term.write(tostring(x))
+]]
