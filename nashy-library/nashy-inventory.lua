@@ -26,4 +26,7 @@ local sides = require("sides")
 
 local tp = component.proxy(component.get("1e8b"))
 local side = sides.up
-inventory.isEmpty(tp, side)
+
+local x = inventory.isEmpty(tp, side)
+
+term.write(tostring(x))
