@@ -20,7 +20,7 @@ end
 
 while true do
     for index in pairs(settings.rigs) do
-        os.sleep(0.5)
+        os.sleep(1)
         local redstone_pool = component.proxy(component.get(settings.rigs[index].redstone_pool_address))
         local redstone_pool_side = settings.rigs[index].redstone_pool_side
 
@@ -41,7 +41,6 @@ while true do
         end
         
     end
-    break
     os.sleep(1)
 end
 
