@@ -1,8 +1,7 @@
 local inventory = {}
 
 -- check to see if inventory contains any items
-function inventory.isEmpty(transposer, side)
-
+function inventory.isEmpty()
     return true
 end
 
