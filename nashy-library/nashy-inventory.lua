@@ -12,7 +12,7 @@ function inventory.isEmpty(transposer, side)
     end
 
     local slots = transposer.getInventorySize(side)
-    for index = 1, slots, 1 do
+    for slot = 1, slots, 1 do
         local stack = transposer.getStackInSlot(side, slot)
         if (stack ~= nil and stack.size > 0) then
             return false
@@ -21,4 +21,8 @@ function inventory.isEmpty(transposer, side)
     return true
 end
 
-return inventory
+local tp = component.proxy(component.get("1e8b"))
+local side = sides.up
+inventory.isEmpty(tp, side)
+
+--return inventory
