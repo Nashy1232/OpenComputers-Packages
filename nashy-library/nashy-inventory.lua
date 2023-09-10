@@ -2,7 +2,7 @@ local inventory = {}
 
 
 -- check to see if inventory contains any items
-function inventoy.isEmpty(transposer, side)
+function inventory.isEmpty(transposer, side)
     local slots = transposer.getInventorySize()
     for index in pairs(slots) do
         local stack = transposer.getStackInSlot()
