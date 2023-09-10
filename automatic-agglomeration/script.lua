@@ -37,7 +37,7 @@ while true do
         local mana_threshold = settings.rigs[index].mana_threshold
 
         if (pool_percent > mana_threshold and redstone_detector.getInput(redstone_detector_side) == 0) then
-            drop(transposer_dropper, transposer_dropper_side)
+            drop(transposer_dropper, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
         end
         
     end
