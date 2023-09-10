@@ -13,31 +13,37 @@ local function drop(transposer_dropper, transposer_dropper_side, redstone_droppe
             os.sleep(0.25)
             redstone_dropper.setOutput(redstone_dropper_side, 0)
         else
-            break
+            return true
         end
     end
 end
 
+local function emptyBuffer(transposer_buffer, transposer_buffer_side)
 
 while true do
     for index in pairs(settings.rigs) do
         os.sleep(0.5)
         local redstone_pool = component.proxy(component.get(settings.rigs[index].redstone_pool_address))
         local redstone_pool_side = settings.rigs[index].redstone_pool_side
+
         local redstone_dropper = component.proxy(component.get(settings.rigs[index].redstone_dropper_address))
         local redstone_dropper_side = settings.rigs[index].redstone_dropper_side
+
+        local redstone_detector = component.proxy(component.get(settings.rigs[index].redstone_detector))
+        local redstone_detector_side = settings.rigs[index].redstone_detector_side
+
+        local transposer_dropper = component.proxy(component.get(settings.rigs[index].transposer_dropper))
+        local transposer_dropper_side = settings.rigs[index].transposer_dropper_side
 
         local pool_percent = (redstone_pool.getComparatorInput(redstone_pool_side) / 15) -- percent value between 0 and 1.0
         local mana_threshold = settings.rigs[index].mana_threshold
 
-        local transposer_items = component.proxy(component.get(settings.rigs[index].transposer_items))
-        local transposer_buffer_side = settings.rigs[index].transposer_buffer_side
-        local transposer_dropper_side = settings.rigs[index].transposer_dropper_side
-
-        drop(transposer_items, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
-        break
+        if (pool_percent > mana_threshold and redstone_detector.getInput(redstone_detector_side) == 0) then
+            drop(transposer_dropper, transposer_dropper_side)
+        end
         
     end
+    break
     os.sleep(1)
 end
 
