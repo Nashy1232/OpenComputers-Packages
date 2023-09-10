@@ -5,6 +5,8 @@ local nashy = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
+local sides = require("sides")
+
 local t = component.proxy(component.get("59a5"))
 local s = sides.up
 
