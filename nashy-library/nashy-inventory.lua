@@ -7,7 +7,11 @@ local inventory = {}
 function inventory.isEmpty(transposer, side, sleep)
     sleep = sleep or 0.1
 
-    if (transposer == nil or side == nil) then
+    if (transposer == nil) then
+        error("nashy.inventory.isEmpty - transposer nil")
+        return nil
+    elseif (side == nil) then
+        error("nashy.inventory.isEmpty - side nil")
         return nil
     end
 

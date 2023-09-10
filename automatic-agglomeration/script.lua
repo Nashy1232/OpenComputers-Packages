@@ -13,7 +13,6 @@ local side = sides.up
 local x = nashy.isEmpty(tp, side)
 
 
-term.write(tostring(x))
 
 --[[
 while true do
