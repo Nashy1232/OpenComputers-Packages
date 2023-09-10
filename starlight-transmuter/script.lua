@@ -27,7 +27,7 @@ while true do
                 end
             end
         end
-        os.sleep(0.5)
+        os.sleep(1)
     end
 end
 
