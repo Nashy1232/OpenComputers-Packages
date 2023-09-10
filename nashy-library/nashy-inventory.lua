@@ -13,7 +13,7 @@ function inventory.isEmpty(transposer, side)
 
     local slots = transposer.getInventorySize(side)
     for index = 1, slots, 1 do
-        local stack = transposer.getStackInSlot()
+        local stack = transposer.getStackInSlot(side, slot)
         if (stack ~= nil and stack.size > 0) then
             return false
         end
