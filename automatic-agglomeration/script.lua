@@ -11,6 +11,8 @@ local tp = component.proxy(component.get("1e8b"))
 local side = sides.up
 
 local x = nashy.isEmpty(tp, side)
+
+
 term.write(tostring(x))
 
 --[[
