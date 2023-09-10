@@ -1,3 +1,5 @@
+local sides = require("sides")
+
 local inventory = {}
 
 
