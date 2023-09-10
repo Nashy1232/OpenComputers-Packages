@@ -5,28 +5,48 @@ local inventory = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
-local function status_check()
-    local status = {
-        mana = false,
-        dropper = false,
-        buffer = false
-    }
-
+local function drop(transposer_dropper, side_transposer_dropper, redstone_dropper, side_redstone_dropper)
+    while true do
+        if (inventory.isEmpty(transposer_dropper, side_transposer_dropper) == false) then
+            redstone_dropper.setOutput(side_redstone_dropper, 15)
+            os.sleep(0.25)
+            redstone_dropper.setOutput(side_redstone_dropper, 0)
+        else
+            break
+        end
+    end
 end
+
 
 while true do
     for index in pairs(settings.rigs) do
         os.sleep(0.5)
         local redstone_pool = component.proxy(component.get(settings.rigs[index].redstone_pool_address))
         local redstone_pool_side = settings.rigs[index].redstone_pool_side
+        local redstone_dropper = component.proxy(component.get(settings.rigs[index].redstone_dropper_address))
+        local redstone_dropper_side = settings.rigs[index].redstone_dropper_address
+
         local pool_percent = (redstone_pool.getComparatorInput(redstone_pool_side) / 15) -- percent value between 0 and 1.0
         local mana_threshold = settings.rigs[index].mana_threshold
+
         local transposer_items = component.proxy(component.get(settings.rigs[index].transposer_items))
         local transposer_buffer_side = settings.rigs[index].transposer_buffer_side
+        local transposer_dropper_side = settings.rigs[index].transposer_dropper_side
 
-        if pool_percent > mana_threshold then 
-
-        end
+        drop(transposer_items, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
+        break
+        
     end
     os.sleep(1)
 end
+
+
+--[[
+    if the pool is above the minimum threshold AND the dropper has items in it THEN drop 3 items
+
+    when items are dropped a flag needs to be saved so i can move into the waiting phase,
+
+    if the waiting flag is true then i need to wait until an item shows up in the buffer vacume chest
+
+    once an item is in the buffer chest i can then export it to the ME system
+]]
