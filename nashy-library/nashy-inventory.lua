@@ -6,7 +6,6 @@ function inventory.isEmpty(transposer, side)
         return nil
     else
         local slots = transposer.getInventorySize()
-
         if (slots == nil) then
             return nil
         else
