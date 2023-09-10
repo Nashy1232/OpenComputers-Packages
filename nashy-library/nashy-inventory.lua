@@ -1,5 +1,3 @@
-local sides = require("sides")
-
 local term = require("term")
 
 
@@ -21,8 +19,11 @@ function inventory.isEmpty(transposer, side)
     return true
 end
 
+--return inventory
+
+local component = require("component") 
+local sides = require("sides")
+
 local tp = component.proxy(component.get("1e8b"))
 local side = sides.up
 inventory.isEmpty(tp, side)
-
---return inventory
