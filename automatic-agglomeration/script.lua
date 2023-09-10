@@ -18,8 +18,6 @@ local function drop(transposer_dropper, transposer_dropper_side, redstone_droppe
     end
 end
 
-local function emptyBuffer(transposer_buffer, transposer_buffer_side)
-
 while true do
     for index in pairs(settings.rigs) do
         os.sleep(0.5)
