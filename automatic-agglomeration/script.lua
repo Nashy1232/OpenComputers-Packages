@@ -7,10 +7,10 @@ local nashy = require("nashy-inventory")
 
 local sides = require("sides")
 
-local t = component.proxy(component.get("1e8b"))
-local s = sides.up
+local tp = component.proxy(component.get("1e8b"))
+local side = sides.up
 
-local x = nashy.isEmpty(t,1)
+local x = nashy.isEmpty(tp, side)
 term.write(tostring(x))
 
 --[[
