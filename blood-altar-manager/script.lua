@@ -71,6 +71,7 @@ function altar_extract(transposer, altar_side, output_side)
         for slot = 1, transposer.getInventorySize(output_side), 1 do
             local inv_item = transposer.getStackInSlot(output_side, slot)
             local inv_item_stack = inv_item.getSlotStackSize(output_side, slot) or 0
+            term.write(tostring(inv_item_stack))
             local inv_item_max_stack = inv_item.getSlotMaxStackSize(output_side, slot) or 0
             if (inv_item == nil) then
                 transposer.transferItem(altar_side, output_side, 1, 1, slot)
