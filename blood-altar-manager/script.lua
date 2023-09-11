@@ -70,14 +70,15 @@ function altar_extract(transposer, altar_side, output_side)
     while item_info ~= nil do
         for slot = 1, transposer.getInventorySize(output_side), 1 do
             local inv_item = transposer.getStackInSlot(output_side, slot)
-            local inv_item_stack = inv_item.getSlotStackSize(output_side, slot) or 0
-            term.write(tostring(inv_item_stack))
-            local inv_item_max_stack = inv_item.getSlotMaxStackSize(output_side, slot) or 0
-            if (inv_item == nil) then
+            if (inv_item == nil or inv_item == nil) then
                 transposer.transferItem(altar_side, output_side, 1, 1, slot)
                 break
-            elseif (item_info.label == inv_item.label and inv_item_stack < inv_item_max_stack) then
-                transposer.transferItem(altar_side, output_side, 1, 1, slot)
+            elseif (item_info.label == inv_item.label) then
+                local inv_item_stack = inv_item.getSlotStackSize(output_side, slot)
+                local inv_item_max_stack = inv_item.getSlotMaxStackSize(output_side, slot)
+                if (inv_item_stack < inv_item_max_stack) then
+                    transposer.transferItem(altar_side, output_side, 1, 1, slot)
+                end
                 break
             end
             os.sleep(0.1)
