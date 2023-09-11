@@ -101,6 +101,7 @@ while true do
     end
 
     for index in pairs(settings.altars) do
+        os.sleep(1)
         local transposer_fluids = component.proxy(component.get(settings.altars[index].transposer_fluid_address))
         local transposer_items = component.proxy(component.get(settings.altars[index].transposer_item_address))
         local transposer_target = component.proxy(component.get(settings.altars[index].transposer_target_address))
@@ -131,5 +132,5 @@ while true do
             end
         end
     end
-    os.sleep(3)
+    os.sleep(1)
 end
