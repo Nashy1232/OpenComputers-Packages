@@ -73,7 +73,7 @@ function altar_extract(transposer, altar_side, output_side)
             if (inv_item == nil) then
                 transposer.transferItem(altar_side, output_side, 1, 1, slot)
                 break
-            elseif (item_info.label == inv_item.label) then
+            elseif (item_info.label == inv_item.label and inv_item.getSlotStackSize(output_side, slot) < inv_item.getSlotMaxStackSize(output_side, slot)) then
                 transposer.transferItem(altar_side, output_side, 1, 1, slot)
                 break
             end
