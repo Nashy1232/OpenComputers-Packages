@@ -27,7 +27,7 @@ while true do
 
         if (battery_percent > high_capacity) then
             rs(redstone_address, 0)
-        elseif (battery_buffer < low_capacity and enabled) then
+        elseif (battery_percent < low_capacity and enabled) then
             rs(redstone_address, 15)
         end
     end
