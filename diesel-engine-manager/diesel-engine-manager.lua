@@ -3,7 +3,7 @@ local shell = require "shell"
 local thread = require "thread"
 
 local threads = {}
-local program = "/usr/bin/diesel-generator-manager/script.lua"
+local program = "/usr/bin/diesel-engine-manager/script.lua"
 
 function start()
     local proc = thread.create(shell.execute, program, os.getenv("shell"))
