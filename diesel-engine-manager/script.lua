@@ -16,14 +16,14 @@ while true do
         term.clear()
     end
 
-    for index in pairs(settings.altars) do
+    for index in pairs(settings.generators) do
         os.sleep(1)
-        local battery_buffer = component.proxy(component.get(settings.altars[index].battery_buffer_address))
-        local redstone_address = component.proxy(component.get(settings.altars[index].redstone_address))
-        local low_capacity = settings.altars[index].low_capacity
-        local high_capacity = settings.altars[index].high_capacity
+        local battery_buffer = component.proxy(component.get(settings.generators[index].battery_buffer_address))
+        local redstone_address = component.proxy(component.get(settings.generators[index].redstone_address))
+        local low_capacity = settings.generators[index].low_capacity
+        local high_capacity = settings.generators[index].high_capacity
         local battery_percent = battery_buffer.getEnergyStored() / battery_buffer.getEnergyCapacity()
-        local enabled = settings.altars[index].enabled
+        local enabled = settings.generators[index].enabled
 
         if (battery_percent > high_capacity) then
             rs(redstone_address, 0)
