@@ -4,6 +4,10 @@ local term = require("term")
 
 local settings = dofile("/usr/bin/diesel-engine-manager/settings.cfg")
 
+local function rs(redstone, val)
+    redstone.setOutput({val, val, val, val, val, val})
+end
+
 while true do
     if (settings.debug == true) then
         term.clear()
@@ -19,9 +23,9 @@ while true do
         local enabled = settings.generators[index].enabled
 
         if (battery_percent > high_capacity) then
-            redstone.setOutput(0)
+            rs(redstone, 0)
         elseif (battery_percent < low_capacity and enabled) then
-            redstone.setOutput(15)
+            rs(redstone, 15)
         end
     end
     os.sleep(1)
