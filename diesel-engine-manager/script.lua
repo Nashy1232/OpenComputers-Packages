@@ -22,9 +22,9 @@ while true do
         local battery_percent = battery_buffer.getEnergyStored() / battery_buffer.getEnergyCapacity()
         local enabled = settings.generators[index].enabled
 
-        if (battery_percent > high_capacity) then
+        if (battery_percent > high_capacity or enabled == false) then
             rs(redstone, 0)
-        elseif (battery_percent < low_capacity and enabled) then
+        elseif (battery_percent < low_capacity and enabled == true) then
             rs(redstone, 15)
         end
     end
