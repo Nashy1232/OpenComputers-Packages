@@ -4,9 +4,16 @@ local term = require("term")
 
 local settings = dofile("/usr/bin/diesel-engine-manager/settings.cfg")
 
-local function rs(redstone, val)
+local function setRedstone(redstone, val)
     redstone.setOutput({val, val, val, val, val, val})
 end
+
+local function getRedstone(redstone, side) 
+    redstone.getInput(side)
+end
+
+local rs_enable = component.proxy(component.get(settings.enable_redstone_address))
+local rs_enable_side = settings.rs_enable_side
 
 while true do
     if (settings.debug == true) then
@@ -22,10 +29,10 @@ while true do
         local battery_percent = battery_buffer.getEnergyStored() / battery_buffer.getEnergyCapacity()
         local enabled = settings.generators[index].enabled
 
-        if (battery_percent > high_capacity or enabled == false) then
-            rs(redstone, 0)
-        elseif (battery_percent < low_capacity and enabled == true) then
-            rs(redstone, 15)
+        if (battery_percent < low_capacity and enabled == true and getRedstone(rs_enable, rs_enable_side) > 0) then
+            setRedstone(redstone, 15)
+        elseif (battery_percent > high_capacity or enabled == false or getRedstone(rs_enable, rs_enable_side) == 0) then
+            setRedstone(redstone, 0)
         end
     end
     os.sleep(1)
