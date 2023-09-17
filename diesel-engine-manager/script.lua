@@ -9,11 +9,13 @@ local function setRedstone(redstone, val)
 end
 
 local function getRedstone(redstone, side) 
-    redstone.getInput(side)
+    local val = redstone.getInput(side)
+    if (val == nil) then val = 0 end
+    return val
 end
 
 local rs_enable = component.proxy(component.get(settings.enable_redstone_address))
-local rs_enable_side = settings.rs_enable_side
+local rs_enable_side = settings.enable_redstone_side
 
 while true do
     if (settings.debug == true) then
