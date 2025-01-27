@@ -41,6 +41,7 @@ while true do
         end
 
         if (settings.debug == true) then
+            term.clear()
             term.write("Current mana level: " .. pool_percent .. "\n")
             term.write("Required mana level: " .. mana_threshold .. "\n")
         end
