@@ -39,6 +39,11 @@ while true do
         if (pool_percent > mana_threshold and redstone_detector.getInput(redstone_detector_side) == 0) then
             drop(transposer_dropper, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
         end
+
+        if (settings.debug == true) then
+            term.write("Current mana level: " .. pool_percent .. "\n")
+            term.write("Required mana level: " .. mana_threshold .. "\n")
+        end
         
     end
     os.sleep(1)
