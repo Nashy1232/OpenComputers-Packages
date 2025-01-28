@@ -5,6 +5,8 @@ local inventory = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/nacre-creator/settings.cfg")
 
+term.write("initialising automatic nacre creation")
+
 while true do
     if (settings.debug == true) then
         term.clear()

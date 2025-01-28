@@ -7,16 +7,24 @@ local inventory = require("nashy-inventory")
 local settings = dofile("/usr/bin/automatic-agglomeration/settings.cfg")
 
 local function drop(transposer_dropper, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
-    if (inventory.isEmpty(transposer_dropper, transposer_dropper_side) == false) then
+    if (inventory.isEmpty(transposer_dropper, transposer_dropper_side, 0.5) == false) then
         for i = 1, 3, 1 do
             redstone_dropper.setOutput(redstone_dropper_side, 15)
             os.sleep(0.25)
             redstone_dropper.setOutput(redstone_dropper_side, 0)
+            if (settings.debug == true) then
+                term.write("Dropping slot " .. tostring(i) .. "\n")
+            end
         end
     else
+        if (settings.debug == true) then
+            term.write("Failed to drop, inventory empty" .. "\n")
+        end
         return true
     end
 end
+
+term.write("initialising automatic agglomeration")
 
 while true do
     for index in pairs(settings.rigs) do
@@ -36,14 +44,18 @@ while true do
         local pool_percent = (redstone_pool.getComparatorInput(redstone_pool_side) / 15) -- percent value between 0 and 1.0
         local mana_threshold = settings.rigs[index].mana_threshold
 
-        if (pool_percent > mana_threshold and redstone_detector.getInput(redstone_detector_side) == 0) then
-            drop(transposer_dropper, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
-        end
-
         if (settings.debug == true) then
             term.clear()
             term.write("Current mana level: " .. pool_percent .. "\n")
             term.write("Required mana level: " .. mana_threshold .. "\n")
+            term.write("\n")
+            term.write("Entity detector: " .. redstone_detector.getInput(redstone_detector_side) .. "\n")
+            term.write("\n")
+            term.write("Dropper Empty: " .. tostring(inventory.isEmpty(transposer_dropper, transposer_dropper_side)) .. "\n")
+        end
+
+        if (pool_percent > mana_threshold and redstone_detector.getInput(redstone_detector_side) == 0) then
+            drop(transposer_dropper, transposer_dropper_side, redstone_dropper, redstone_dropper_side)
         end
         
     end

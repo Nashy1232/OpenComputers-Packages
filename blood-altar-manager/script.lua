@@ -97,6 +97,8 @@ function altar_insert(transposer, altar_side, input_side, transfer_count)
     end
 end
 
+term.write("initialising blood altar manager")
+
 while true do
     if (settings.debug == true) then
         term.clear()
