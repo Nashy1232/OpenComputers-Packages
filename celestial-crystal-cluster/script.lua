@@ -19,9 +19,9 @@ while true do
         --local redstone_side = settings.rigs[index].redstone_side
 
         local redstone_dropper = component.proxy(component.get(settings.rigs[index].redstone_dropper_address))
-        local redstone_dropper_side = settings.rigs[index.redstone_dropper_side]
+        local redstone_dropper_side = settings.rigs[index].redstone_dropper_side
         local redstone_breaker = component.proxy(component.get(settings.rigs[index].redstone_breaker_address))
-        local redstone_breaker_side = settings.rigs[index.redstone_breaker_side]
+        local redstone_breaker_side = settings.rigs[index].redstone_breaker_side
         local geolyzer = component.proxy(component.get(settings.rigs[index].geolyzer_address))
         local geolyzer_side = settings.rigs[index].geolyzer_side
 
@@ -37,22 +37,23 @@ while true do
         end
 
         if (result_table.name == "astralsorcery:blockcelestialcrystals") then
-            if (settings.debug == true) then
-                term.write(result_table.properties.stage .. "\n")
-            end
-            if (result_table.properties.stage == "4") then
+            if (result_table.properties.stage == 4) then
+                if (settings.debug == true) then
+                    term.write("Crystal has fully grown. \n")
+                end
                 -- crystal has fully grown
-                cycleRedstone(redstone_breaker, redstone_breaker_side, 15, 0, 0.5)
+                cycleRedstone(redstone_breaker, redstone_breaker_side, 15, 0, 0)
+                settings.rigs[index].dropped = false -- reset the flag to false
             else
                 -- crystal has not finished growing
                 -- I dont think anything has to be done here
             end
         elseif (result_table.name == "astralsorcery:fluidblockliquidstarlight") then
             -- there is starlight, drop item and set flag
-            if (settings.rigs[index.dropped] == false) then
+            if (settings.rigs[index].dropped == false) then
                 -- drop the item
                 cycleRedstone(redstone_dropper, redstone_dropper_side, 15, 0, 0.5)
-                settings.rigs[index.dropped] == true
+                settings.rigs[index].dropped = true
             end
         end
         os.sleep(5)
