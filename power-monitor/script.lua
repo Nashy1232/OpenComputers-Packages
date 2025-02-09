@@ -4,8 +4,13 @@ local term = require("term")
 
 local settings = dofile("/usr/bin/power-monitor/settings.cfg")
 
-capacitor = component.proxy(component.get(settings.substation_address))
 redstone = component.proxy(component.get(settings.redstone_address))
+for address, name in component.list("substation") do
+    capacitor = component.proxy(address)
+    break
+end
+
+
 
 local function rs(val)
     redstone.setOutput({val, val, val, val, val, val})
