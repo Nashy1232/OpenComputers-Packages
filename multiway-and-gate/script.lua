@@ -16,7 +16,7 @@ end
 function setRedstone(gate, val)
     for _, address in pairs(settings.gates[gate].outputs) do
         local redstone = component.proxy(component.get(address))
-        --redstone.setOutput(val)
+        redstone.setOutput({val, val, val, val, val, val})
     end
 end
 

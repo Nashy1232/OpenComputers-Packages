@@ -47,6 +47,8 @@ while true do
         local redstone_dropper_side = settings.rigs[index].redstone_dropper_side
         local redstone_breaker = component.proxy(component.get(settings.rigs[index].redstone_breaker_address))
         local redstone_breaker_side = settings.rigs[index].redstone_breaker_side
+        local redstone_input = component.proxy(component.get(settings.rigs[index].redstone_input_address))
+        local redstone_input_side = settings.rigs[index].redstone_input_side
         local transposer_dropper = component.proxy(component.get(settings.rigs[index].transposer_dropper_address))
         local transposer_dropper_side = settings.rigs[index].transposer_dropper_side
         local geolyzer = component.proxy(component.get(settings.rigs[index].geolyzer_address))
@@ -55,6 +57,7 @@ while true do
         -- reset redstone
         redstone_breaker.setOutput(redstone_breaker_side, 0)
         redstone_dropper.setOutput(redstone_dropper_side, 0)
+        redstone_input.setOutput(redstone_input_side, 0)
 
 
         local result_table = geolyzer.analyze(geolyzer_side)
@@ -69,9 +72,9 @@ while true do
                 term.write("Current growth stage: " .. tostring(result_table.properties.stage) .. "\n")
             end
 
-            if (result_table.properties.stage == 4) then
+            if (result_table.properties.stage >= 0) then
                 if (settings.debug == true) then
-                    term.write("Crystal has fully grown. \n")
+                    term.write("Crystal has fully (maybe). \n")
                 end
                 -- crystal has fully grown
                 cycleRedstone(redstone_breaker, redstone_breaker_side, 15, 0, 0)
@@ -88,12 +91,13 @@ while true do
                     if (settings.debug == true) then
                         term.write("dropping items. \n")
                     end
-                    cycleRedstone(redstone_dropper, redstone_dropper_side, 15, 0, 0.5)
-                    cycleRedstone(redstone_dropper, redstone_dropper_side, 15, 0, 0.5)
+                    cycleRedstone(redstone_dropper, redstone_dropper_side, 15, 0, 0.2)
+                    cycleRedstone(redstone_dropper, redstone_dropper_side, 15, 0, 0.2)
                     settings.rigs[index].dropped = true
                 else 
                     if (settings.debug == true) then
                         term.write("unable to drop, check dropper contents. \n")
+                        cycleRedstone(redstone_input, redstone_input_side, 15, 0, 3)
                     end
                 end
             else
@@ -102,7 +106,7 @@ while true do
                 end
             end
         end
-        os.sleep(5)
+        os.sleep(3)
     end
 end
 
