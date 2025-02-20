@@ -95,10 +95,12 @@ while true do
                     cycleRedstone(redstone_dropper, redstone_dropper_side, 15, 0, 0.2)
                     settings.rigs[index].dropped = true
                 else 
+                    -- no items in dropper / items in wrong order
                     if (settings.debug == true) then
                         term.write("unable to drop, check dropper contents. \n")
-                        cycleRedstone(redstone_input, redstone_input_side, 15, 0, 3)
                     end
+                    cycleRedstone(redstone_input, redstone_input_side, 15, 0, 3)
+                    break
                 end
             else
                 if (settings.debug == true) then
