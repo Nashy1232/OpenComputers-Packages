@@ -19,15 +19,21 @@ function checkDropper(transposer, side)
         if (transposer.getStackInSlot(side, 1).label == "Stardust") then
             if (transposer.getSlotStackSize(side, 1) == 1) then
                 stardustReady = true
+                if (settings.debug == true) then
+                    term.write("Stardust is ready. \n")
+                end
             end
         end
     end
 
     -- rock crystal must be slot 2
     if (transposer.getStackInSlot(side, 2) ~= nil) then
-        if (transposer.getStackInSlot(side, 2).label == "Rock Crystal") then
+        if (transposer.getStackInSlot(side, 2).label == "Rock Crystal" or transposer.getStackInSlot(side, 2).label == "Attuned Rock Crystal") then
             if (transposer.getSlotStackSize(side, 2) == 1) then
                 crystalReady = true
+                if (settings.debug == true) then
+                    term.write("Crystal is ready. \n")
+                end
             end
         end
     end
@@ -99,7 +105,7 @@ while true do
                     if (settings.debug == true) then
                         term.write("unable to drop, check dropper contents. \n")
                     end
-                    cycleRedstone(redstone_input, redstone_input_side, 15, 0, 3)
+                    cycleRedstone(redstone_input, redstone_input_side, 15, 0, 1)
                     break
                 end
             else
