@@ -1,6 +1,7 @@
 local os = require("os")
 local component = require("component") 
 local term = require("term")
+local inventory = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/test-carling/settings.cfg")
 
@@ -29,18 +30,9 @@ function runSequence()
     setState(settings.activate, 15)
 end
 
-function getItems(transposer)
-    local item = component.proxy(component.get(settings.transposer.id))
-    local slots = item.getInventorySize(settings.transposer.side)
-
-    term.write("Slots: " .. slots .. "\n")
-
-    for i=1, slots, 1 do
-        --getSlotStackSize(side:number, slot:number)
-        local count = item.getSlotStackSize(transposer.side, i)
-        term.write(i .. ": " .. count .. "\n")
-    end
-end
+local transposer = component.proxy(component.get(settings.transposer.id))
+local empty = inventory.isEmpty(transposer, settings.transposer.side)
+term.write("isEmpty: " .. empty)
 
 term.write("Running...\n")
 getItems(settings.transposer)
