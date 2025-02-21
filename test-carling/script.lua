@@ -18,6 +18,7 @@ function clear()
 end
 
 function runSequence()
+    clear()
     os.sleep(1)
     setState(settings.stage1, 15)
     os.sleep(1)
@@ -28,12 +29,22 @@ function runSequence()
     setState(settings.stage4, 15)
     os.sleep(1)
     setState(settings.activate, 15)
+    os.sleep(2)
+    clear()
 end
 
-local transposer = component.proxy(component.get(settings.transposer.id))
-local empty = inventory.isEmpty(transposer, settings.transposer.side)
-term.write("isEmpty: " .. empty)
-
 term.write("Running...\n")
-getItems(settings.transposer)
-term.write("Program Complete.")
+
+while true do
+    local transposer = component.proxy(component.get(settings.transposer.id))
+    local empty = inventory.isEmpty(transposer, settings.transposer.side)
+
+    if (not empty) then
+        term.write("Running Sequence\n")
+        runSequence()
+    else 
+        term.write("Loop\n")
+    end
+
+    os.sleep(3)
+end
