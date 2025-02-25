@@ -4,20 +4,24 @@ local term = require("term")
 local inventory = require("nashy-inventory")
 
 local settings = dofile("/usr/bin/test-carling/settings.cfg")
+local component_cache = {}
 
-function getBlock(id)
+local function get_component(addr)
+    if not component_cache[addr]
+
+local function get_component(id)
     return component.proxy(component.get(id))
 end
 
-function clearStages()
+local function clearStages()
     for i, stage in ipairs(settings.stages) do
-        getBlock(stage.id).setOutput(stage.side, 0)
+        getComponent(stage.id).setOutput(stage.side, 0)
     end
 end
 
-function runStages()
+local function runStages()
     for i, stage in ipairs(settings.stages) do
-        getBlock(stage.id).setOutput(stage.side, 15)
+        getComponent(stage.id).setOutput(stage.side, 15)
         os.sleep(stage.delay)
     end
 end
